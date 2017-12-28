@@ -1,26 +1,85 @@
-import React from 'react'
-import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment } from 'semantic-ui-react'
 
-const FixedMenuLayout = () => (
-  <div>
-    <Menu fixed='top' inverted>
-      <Container>
-        <Menu.Item as='a' header>
-          Blood Sugar Sex Magik
-        </Menu.Item>
-        <Menu.Item as='a'>Home</Menu.Item>
-        <Menu.Item as='a'>Sobre</Menu.Item>
-      </Container>
-    </Menu>
+import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+import { Menu, Form, Button, Grid, Header, Segment, Image, Message } from 'semantic-ui-react';
 
-    <Container text style={{ marginTop: '7em' }}>
-      <Header as='h1'>Semantic UI React Fixed Template</Header>
-      <p>This is a basic fixed menu template using fixed size containers.</p>
-      <p>A text container is used for the main container, which is useful for single column layouts.</p>
+import './style.css';
 
-    </Container>
+class Home extends Component {
+  constructor(props: Props) {
+    super(props);
+    autoBind(this);
+    this.state = {
+      cardsList: '',
+    };
+  }
 
-  </div>
-)
+  handleSubmit() {
+    console.log(this.state.cardsList);
+  }
 
-export default FixedMenuLayout
+  handleInputChange(e) {
+    const { name, value } = e.target;
+    console.log(name, value);
+    this.setState({ [name]: value });
+  }
+
+  render() {
+    const { cardsList } = this.state;
+    console.log({cardsList});
+
+    return (
+      <div className="Home">
+        <Menu fixed="top" inverted borderless>
+          <Menu.Item header>Blood Sugar Sex Magik</Menu.Item>
+        </Menu>
+        <div className="Home-form">
+          <Grid
+            textAlign='center'
+            style={{ height: '100%' }}
+            verticalAlign='middle'
+          >
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as='h2' color='red' textAlign='center'>
+                <Image src='https://files.slack.com/files-pri/T024ZJBML-F8LUNFB8E/bssmk?pub_secret=2a8406c9f8' />
+                {' '}
+                Cole sua lista de cartas
+              </Header>
+              <Form size='large'>
+                <Segment>
+                  <Form.Field
+                    as="textarea"
+                    value={this.state.cardsList}
+                    name="cardsList"
+                    onChange={this.handleInputChange}
+                    placeholder='Lista de cartas'
+                  />
+                  <Button color='red' fluid size='large'> Procurar </Button>
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Home;
+
+// import React from 'react'
+// import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+
+// const LoginForm = () => (
+//   <div className='login-form'>
+//     <style>{`
+//       body > div,
+//       body > div > div,
+//       body > div > div > div.login-form {
+//         height: 100%;
+//       }
+//     `}</style>
+//   </div>
+// )
+
+// export default LoginForm
